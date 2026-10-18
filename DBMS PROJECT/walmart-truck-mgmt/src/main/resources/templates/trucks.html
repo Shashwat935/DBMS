@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Trucks – Walmart Truck MGMT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><i class="bi bi-truck me-2"></i>Walmart Truck MGMT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="/parking">Parking</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/trucks">Trucks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dispatch">Dispatch</a></li>
+                <li class="nav-item"><a class="nav-link" href="/gates">Gates</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cleaning">Cleaning</a></li>
+                <li class="nav-item"><a class="nav-link" href="/reports">Reports</a></li>
+                <li class="nav-item"><a class="nav-link" href="/rules">Rules</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="page-header d-flex justify-content-between align-items-center">
+        <div>
+            <h2><i class="bi bi-truck me-2"></i>Truck Management</h2>
+            <p>View, filter, and manage all trucks</p>
+        </div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTruckModal">
+            <i class="bi bi-plus-lg me-1"></i> Add Truck
+        </button>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-3">
+        <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#trucksTab">All Trucks</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#ledgerTab">UNION Ledger</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- All Trucks Tab -->
+        <div class="tab-pane fade show active" id="trucksTab">
+            <!-- Filters -->
+            <div class="row g-2 mb-3">
+                <div class="col-md-3">
+                    <select class="form-select" id="statusFilter" onchange="applyFilter()">
+                        <option value="">All Statuses</option>
+                        <option value="IN_PARKING">In Parking</option>
+                        <option value="IN_CLEANING">In Cleaning</option>
+                        <option value="AT_GATE">At Gate</option>
+                        <option value="DISPATCHED">Dispatched</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="searchPlate" placeholder="Search plate or driver..." oninput="applyFilter()"/>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th><th>Plate</th><th>Driver</th><th>City</th>
+                                    <th>Distance</th><th>Capacity</th><th>Prev Load</th>
+                                    <th>Status</th><th>Slot</th><th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="truckTableBody">
+                                <tr><td colspan="10" class="text-center text-muted">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ledger Tab -->
+        <div class="tab-pane fade" id="ledgerTab">
+            <div class="card">
+                <div class="card-header">Combined Ledger (UNION: Parking + Cleaning)</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr><th>Truck ID</th><th>Plate</th><th>Status</th><th>Distance</th><th>Arrival</th><th>Source</th></tr>
+                        </thead>
+                        <tbody id="ledgerBody">
+                            <tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Truck Modal -->
+<div class="modal fade" id="addTruckModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form onsubmit="handleAddTruck(event)">
+                <div class="modal-header"><h5 class="modal-title">Register New Truck</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3"><label class="form-label">License Plate</label>
+                        <input type="text" class="form-control" name="licensePlate" required/></div>
+                    <div class="mb-3"><label class="form-label">Driver Name</label>
+                        <input type="text" class="form-control" name="driverName" required/></div>
+                    <div class="mb-3"><label class="form-label">Origin City</label>
+                        <input type="text" class="form-control" name="originCity" required/></div>
+                    <div class="mb-3"><label class="form-label">Distance (km)</label>
+                        <input type="number" step="0.1" class="form-control" name="locationDistance" required/></div>
+                    <div class="mb-3"><label class="form-label">Max Capacity (tons)</label>
+                        <input type="number" step="0.1" class="form-control" name="maxWeightCapacity" required/></div>
+                    <div class="mb-3"><label class="form-label">Previous Load Type</label>
+                        <select class="form-select" name="addPrevLoadType" id="addPrevLoadType"></select></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/trucks.js"></script>
+</body>
+</html>

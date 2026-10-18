@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Reports – Walmart Truck MGMT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><i class="bi bi-truck me-2"></i>Walmart Truck MGMT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="/parking">Parking</a></li>
+                <li class="nav-item"><a class="nav-link" href="/trucks">Trucks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dispatch">Dispatch</a></li>
+                <li class="nav-item"><a class="nav-link" href="/gates">Gates</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cleaning">Cleaning</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/reports">Reports</a></li>
+                <li class="nav-item"><a class="nav-link" href="/rules">Rules</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="page-header">
+        <h2><i class="bi bi-bar-chart me-2"></i>Reports &amp; Analytics</h2>
+        <p>Aggregate queries: GROUP BY, HAVING, subqueries</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Weight by Load Type -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-box-seam me-2"></i>Weight by Load Type (Completed)</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead><tr><th>Load Type</th><th>Dispatches</th><th>Total Weight</th></tr></thead>
+                        <tbody id="weightBody"><tr><td colspan="3" class="text-center text-muted">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gate Performance -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-door-open me-2"></i>Gate Performance</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead><tr><th>Gate</th><th>Total Dispatches</th><th>Avg Duration</th></tr></thead>
+                        <tbody id="gatePerformanceBody"><tr><td colspan="3" class="text-center text-muted">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Size Class Counts -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-truck me-2"></i>Trucks per Size Class (In Parking)</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead><tr><th>Size Class</th><th>Count</th></tr></thead>
+                        <tbody id="sizeClassBody"><tr><td colspan="2" class="text-center text-muted">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Summary -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-calendar-event me-2"></i>Daily Dispatch Summary</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead><tr><th>Date</th><th>Dispatches</th><th>Total Weight</th></tr></thead>
+                        <tbody id="dailyBody"><tr><td colspan="3" class="text-center text-muted">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Above Average Capacity (Subquery) -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-graph-up me-2"></i>Trucks Above Average Capacity (Subquery)</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead><tr><th>Plate</th><th>Driver</th><th>Capacity</th><th>Size Class</th></tr></thead>
+                        <tbody id="aboveAvgBody"><tr><td colspan="4" class="text-center text-muted">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/reports.js"></script>
+</body>
+</html>

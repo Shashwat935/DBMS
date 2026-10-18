@@ -1,0 +1,394 @@
+/* ============================================================
+   Walmart Warehouse Truck Management System – Custom Styles
+   ============================================================ */
+
+/* ---- CSS Variables (Design Tokens) ---- */
+:root {
+    --primary: #1a73e8;
+    --primary-dark: #1558b0;
+    --secondary: #5f6368;
+    --success: #34a853;
+    --warning: #fbbc04;
+    --danger: #ea4335;
+    --info: #4285f4;
+    --dark: #202124;
+    --light: #f8f9fa;
+    --bg-body: #f0f2f5;
+    --bg-card: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* ---- Global ---- */
+body {
+    background-color: var(--bg-body);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+/* ---- Navbar ---- */
+.navbar {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1) !important;
+    box-shadow: var(--shadow-md);
+    padding: 0.6rem 1rem;
+}
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+.navbar-brand i {
+    font-size: 1.4rem;
+}
+.nav-link {
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+.nav-link:hover, .nav-link.active {
+    background: rgba(255,255,255,0.15);
+}
+
+/* ---- Page Container ---- */
+.page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+.page-header {
+    margin-bottom: 1.5rem;
+}
+.page-header h2 {
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: var(--dark);
+}
+.page-header p {
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+/* ---- Cards ---- */
+.card {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+}
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+.card-header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    padding: 0.85rem 1.25rem;
+}
+
+/* ---- Summary / Stats Cards ---- */
+.stat-card {
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+.stat-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+.stat-card .stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--secondary);
+    font-weight: 600;
+}
+.stat-card.success { border-left-color: var(--success); }
+.stat-card.warning { border-left-color: var(--warning); }
+.stat-card.danger  { border-left-color: var(--danger); }
+.stat-card.info    { border-left-color: var(--info); }
+
+/* ---- Gate Tiles ---- */
+.gate-tile {
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+.gate-tile:hover {
+    box-shadow: var(--shadow-md);
+}
+.gate-tile .gate-number {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.gate-tile.idle     { border-top: 4px solid var(--success); }
+.gate-tile.loading  { border-top: 4px solid var(--info); }
+.gate-tile.unloading { border-top: 4px solid var(--warning); }
+
+/* ---- Parking Grid ---- */
+.parking-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+    max-width: 900px;
+}
+.parking-slot {
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    min-height: 60px;
+}
+.parking-slot.free {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-color: #a5d6a7;
+}
+.parking-slot.free:hover {
+    background: #c8e6c9;
+    transform: scale(1.05);
+}
+.parking-slot.occupied {
+    background: #ffebee;
+    color: #c62828;
+    border-color: #ef9a9a;
+}
+.parking-slot.occupied:hover {
+    background: #ffcdd2;
+    transform: scale(1.05);
+}
+.parking-slot .slot-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+.parking-slot .slot-plate {
+    font-size: 0.6rem;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    padding: 0 2px;
+}
+
+/* ---- Tables ---- */
+.table {
+    font-size: 0.875rem;
+}
+.table thead th {
+    background: var(--bg-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--secondary);
+    border-bottom: 2px solid var(--border-color);
+    white-space: nowrap;
+}
+.table tbody tr {
+    transition: background-color 0.2s;
+}
+.table tbody tr:hover {
+    background: #f5f8ff;
+}
+
+/* ---- Status Badges ---- */
+.badge-status {
+    padding: 0.35em 0.65em;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+.badge-PENDING    { background: #fff3e0; color: #e65100; }
+.badge-ASSIGNED   { background: #e3f2fd; color: #1565c0; }
+.badge-IN_CLEANING { background: #fce4ec; color: #c62828; }
+.badge-IN_PROGRESS { background: #e8f5e9; color: #2e7d32; }
+.badge-COMPLETED  { background: #e0f2f1; color: #00695c; }
+.badge-CANCELLED  { background: #fafafa; color: #757575; }
+.badge-IN_PARKING  { background: #e8f5e9; color: #2e7d32; }
+.badge-AT_GATE     { background: #e3f2fd; color: #1565c0; }
+.badge-DISPATCHED  { background: #f3e5f5; color: #6a1b9a; }
+.badge-IDLE       { background: #e8f5e9; color: #2e7d32; }
+.badge-LOADING    { background: #e3f2fd; color: #1565c0; }
+.badge-UNLOADING  { background: #fff3e0; color: #e65100; }
+
+/* ---- Progress bars ---- */
+.progress {
+    height: 22px;
+    border-radius: 50px;
+    background: var(--bg-body);
+    overflow: hidden;
+}
+.progress-bar {
+    border-radius: 50px;
+    transition: width 0.6s ease;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+/* ---- Buttons ---- */
+.btn {
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    transition: var(--transition);
+}
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ---- Forms ---- */
+.form-control, .form-select {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 0.85rem;
+    font-size: 0.875rem;
+    transition: var(--transition);
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+
+/* ---- Toast container ---- */
+.toast-container {
+    z-index: 9999;
+}
+.toast {
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ---- Legend ---- */
+.legend {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    font-size: 0.85rem;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+}
+.legend-dot.free     { background: #a5d6a7; }
+.legend-dot.occupied { background: #ef9a9a; }
+
+/* ---- Compatibility Matrix Table ---- */
+.matrix-table th, .matrix-table td {
+    text-align: center;
+    min-width: 100px;
+    font-size: 0.8rem;
+}
+.matrix-table .cleaning-yes {
+    background: #fff3e0;
+    font-weight: 600;
+}
+.matrix-table .cleaning-no {
+    background: #e8f5e9;
+}
+.matrix-table .same-type {
+    background: #f5f5f5;
+    color: #bdbdbd;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .parking-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    .page-container {
+        padding: 1rem;
+    }
+}
+
+/* ---- Emergency badge ---- */
+.badge-emergency {
+    background: var(--danger);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.2em 0.5em;
+    border-radius: 50px;
+}
+
+/* ---- Tab styling ---- */
+.nav-tabs .nav-link {
+    background: transparent;
+    color: var(--secondary);
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 0.6rem 1rem;
+}
+.nav-tabs .nav-link.active {
+    color: var(--primary);
+    background: transparent;
+    border-bottom-color: var(--primary);
+    font-weight: 600;
+}
+
+/* ---- Misc ---- */
+.text-muted { color: var(--secondary) !important; }
+.fw-bold { font-weight: 700 !important; }
+hr { border-color: var(--border-color); }

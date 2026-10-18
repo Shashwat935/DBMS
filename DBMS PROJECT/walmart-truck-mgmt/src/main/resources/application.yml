@@ -1,0 +1,33 @@
+# ============================================================
+# Walmart Warehouse Truck Management System – Configuration
+# ============================================================
+
+server:
+  port: 8080
+
+spring:
+  # ---- MySQL Data Source ----
+  datasource:
+    url: jdbc:mysql://localhost:3306/walmart_truck_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
+    username: root
+    password: CHANGE_ME          # <-- CHANGE THIS to your MySQL root password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # ---- JPA / Hibernate ----
+  jpa:
+    hibernate:
+      ddl-auto: update           # auto-create/alter tables on startup
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # ---- Thymeleaf ----
+  thymeleaf:
+    cache: false                 # disable cache for dev convenience
+
+# ---- Custom Application Properties ----
+app:
+  simulation:
+    speed-factor: 1              # 1 = real-time, 60 = 1 real second = 1 simulated minute

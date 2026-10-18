@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Parking – Walmart Truck MGMT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><i class="bi bi-truck me-2"></i>Walmart Truck MGMT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/parking">Parking</a></li>
+                <li class="nav-item"><a class="nav-link" href="/trucks">Trucks</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dispatch">Dispatch</a></li>
+                <li class="nav-item"><a class="nav-link" href="/gates">Gates</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cleaning">Cleaning</a></li>
+                <li class="nav-item"><a class="nav-link" href="/reports">Reports</a></li>
+                <li class="nav-item"><a class="nav-link" href="/rules">Rules</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="page-header">
+        <h2><i class="bi bi-grid-3x3-gap me-2"></i>Parking Slot Map</h2>
+        <p>4 rows (A-D) × 10 columns — click an occupied slot for details</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card"><div class="stat-value" id="totalSlots">40</div><div class="stat-label">Total Slots</div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card danger"><div class="stat-value" id="occupiedSlots">0</div><div class="stat-label">Occupied</div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card success"><div class="stat-value" id="freeSlots">0</div><div class="stat-label">Free</div></div>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend mb-3">
+        <div class="legend-item"><div class="legend-dot free"></div> Free</div>
+        <div class="legend-item"><div class="legend-dot occupied"></div> Occupied</div>
+    </div>
+
+    <!-- Parking Grid -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="parking-grid" id="parkingGrid">
+                <!-- populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Arriving Truck Form -->
+    <div class="card">
+        <div class="card-header"><i class="bi bi-plus-circle me-2"></i>Register Arriving Truck</div>
+        <div class="card-body">
+            <form onsubmit="handleArrival(event)">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">License Plate</label>
+                        <input type="text" class="form-control" name="licensePlate" placeholder="MH-12-AB-1234" required/>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Driver Name</label>
+                        <input type="text" class="form-control" name="driverName" required/>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Origin City</label>
+                        <input type="text" class="form-control" name="originCity" required/>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Distance (km)</label>
+                        <input type="number" step="0.1" class="form-control" name="locationDistance" required/>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Max Capacity (tons)</label>
+                        <input type="number" step="0.1" class="form-control" name="maxWeightCapacity" required/>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Previous Load</label>
+                        <select class="form-select" name="prevLoadType" id="prevLoadType"></select>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100"><i class="bi bi-truck me-1"></i> Register &amp; Park</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/parking.js"></script>
+</body>
+</html>
